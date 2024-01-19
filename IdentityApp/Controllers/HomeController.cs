@@ -50,7 +50,7 @@ namespace IdentityApp.Controllers
         [HttpPost]
         public async Task<IActionResult> SignIn(SignInViewModel model, string returnUrl = null)
         {
-            returnUrl = returnUrl ?? Url.Action("Index", "Home");
+            returnUrl ??= Url.Action("Index", "Home");
             var hasUser = await _UserManager.FindByEmailAsync(model.Email);
 
             if (hasUser == null)
@@ -68,19 +68,19 @@ namespace IdentityApp.Controllers
 
             if (signInResult.IsLockedOut)
             {
-                ModelState.AddModelErrorList(new List<string>()
-                {
+                ModelState.AddModelErrorList(
+                [
                     $"Your Account is locked, please try 3 minutes later."
-                });
+                ]);
                 return View();
 
             }
-            ModelState.AddModelErrorList(new List<string>()
-            {
+            ModelState.AddModelErrorList(
+            [
                     "Email or password is wrong"
-            });
-            ModelState.AddModelErrorList(new List<string>(){
-                    $"Email or password is wrong",$"Failed= {await _UserManager.GetAccessFailedCountAsync(hasUser)}" });
+            ]);
+            ModelState.AddModelErrorList([
+                    $"Email or password is wrong",$"Failed= {await _UserManager.GetAccessFailedCountAsync(hasUser)}" ]);
             return View();
         }
 

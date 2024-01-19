@@ -24,7 +24,7 @@ public class HomeController : Controller
     public async Task<IActionResult> UserList()
     {
         var userList = await _userManager.Users.ToListAsync();
-        var userViewModelList = userList.Select(userList => new UserViewModel()
+        var userViewModelList = userList.Select(userList => new AdminUserViewModel()
         {
             Id = userList.Id,
             Email = userList.Email,

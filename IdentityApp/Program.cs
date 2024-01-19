@@ -28,8 +28,10 @@ builder.Services.AddIdentityWithExtention();
 builder.Services.AddScoped<IEmailService, EmailService>();
 builder.Services.ConfigureApplicationCookie(opt =>
 {
-    var cookieBuilder = new CookieBuilder();
-    cookieBuilder.Name = "UserCookie";
+    var cookieBuilder = new CookieBuilder
+    {
+        Name = "UserCookie"
+    };
     opt.LoginPath = new PathString("/Home/SignIn");
     opt.LogoutPath = new PathString("/Member/logout");
     opt.Cookie = cookieBuilder;

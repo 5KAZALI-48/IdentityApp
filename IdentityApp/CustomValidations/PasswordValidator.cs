@@ -8,7 +8,7 @@ public class PasswordValidator : IPasswordValidator<AppUser>
     public Task<IdentityResult> ValidateAsync(UserManager<AppUser> manager, AppUser user, string password)
     {
         var errors = new List<IdentityError>();
-        if (password!.ToLower().Contains(user.UserName!.ToLower()))
+        if (password!.Contains(user.UserName!, StringComparison.CurrentCultureIgnoreCase))
         {
             errors.Add(new()
             {
@@ -17,7 +17,7 @@ public class PasswordValidator : IPasswordValidator<AppUser>
             });
         }
 
-        if (password!.ToLower().StartsWith("123456"))
+        if (password!.StartsWith("123456", StringComparison.CurrentCultureIgnoreCase))
         {
             errors.Add(new()
             {
@@ -26,9 +26,9 @@ public class PasswordValidator : IPasswordValidator<AppUser>
             });
         }
 
-        if (errors.Any())
+        if (errors.Count != 0)
         {
-            return Task.FromResult(IdentityResult.Failed(errors.ToArray()));
+            return Task.FromResult(IdentityResult.Failed([.. errors]));
         }
 
         return Task.FromResult(IdentityResult.Success);
