@@ -1,0 +1,29 @@
+﻿
+@{
+    ViewData["Title"] = "UserList";
+    //Layout = "~/Views/Home/Index.cshtml";
+}
+
+@model List<UserViewModel>
+<h2>UserList</h2>
+
+<table class="table table-striped">
+    <thead>
+        <tr >
+            <th>Id</th>
+            <th>Username</th>
+            <th>Email</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach( var item in Model)
+        {
+            <tr>
+                <td>@item.Id</td>
+                <td>@item.Name</td>
+                <td>@item.Email</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
