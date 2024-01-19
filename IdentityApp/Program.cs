@@ -19,17 +19,11 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 
 builder.Services.Configure<EmailSettings>(builder.Configuration.GetSection("EmailSettings") );
 
-//builder.Services.AddIdentity<AppUser, AppRole>(options =>
-//{
-//    options.User.RequireUniqueEmail = true;
-//    options.User.AllowedUserNameCharacters = "abcdefghijklmnopqrstuvwxyz123456789_";
-//    options.Password.RequiredLength = 8;
-//    options.Password.RequireNonAlphanumeric = true;
-//    options.Password.RequireDigit = true;
-//    options.Password.RequireLowercase = true;
-//    options.Password.RequireUppercase = true;
+builder.Services.Configure<SecurityStampValidatorOptions>(opt =>
+{
+    opt.ValidationInterval = TimeSpan.FromMinutes(30);
+});
 
-//}).AddEntityFrameworkStores<AppDbContext>();
 builder.Services.AddIdentityWithExtention();
 builder.Services.AddScoped<IEmailService, EmailService>();
 builder.Services.ConfigureApplicationCookie(opt =>
